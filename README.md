@@ -3,12 +3,12 @@
 This repository provides optimized implementations of matrix multiplication algorithms in C, leveraging advanced techniques to achieve high performance. 💻✨ We explore methods like blocking, vectorization, and loop reordering to maximize matrix multiplication efficiency.
 
 > ### 🌐 Related Fields of Study
-> - **Parallel Computing** 🖥️
-> - **Optimization** 📈
-> - **Algorithms** 📚
-> - **High-Performance Computing** ⚙️
-> - **Computer Architecture** 🧩
-> - **Data Processing** 📊
+> - **Parallel Computing**
+> - **Optimization**
+> - **Algorithms**
+> - **High-Performance Computing**
+> - **Computer Architecture**
+> - **Data Processing**
 
 ---
 
