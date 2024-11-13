@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -11,36 +9,35 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    int *restrict matrix_a;
-    int *restrict matrix_b;
-    int *restrict matrix_c;
-
     int n = atoi(argv[1]);
 
-    matrix_a = aligned_alloc(8, n * n * sizeof(*matrix_a));
-    matrix_b = aligned_alloc(8, n * n * sizeof(*matrix_b));
-    matrix_c = aligned_alloc(8, n * n * sizeof(*matrix_c));
+    int **restrict matrix_a = malloc(n * sizeof(*matrix_a));
+    int **restrict matrix_b = malloc(n * sizeof(*matrix_b));
+    int **restrict matrix_c = malloc(n * sizeof(*matrix_c));
 
+    
+    for (int i = 0; i < n; i++) {
+        matrix_a[i] = (int *)aligned_alloc(8, n * sizeof(*matrix_a));
+        matrix_b[i] = (int *)aligned_alloc(8, n * sizeof(*matrix_b));
+        matrix_c[i] = (int *)aligned_alloc(8, n * sizeof(*matrix_c));
+    }
+    
     srand(time(NULL));
 
     for (int i=0; i < n; i++){
         for (int j=0; j < n; j++){
-            matrix_a[i * n + j] = rand() % 10;
-            matrix_b[i * n + j] = rand() % 10;
+            matrix_a[i][j] = rand() % 10;
+            matrix_b[i][j] = rand() % 10;
         }
     }
 
-    #define A(i, j) matrix_a[n*(i) + (j)]
-    #define B(i, j) matrix_b[n*(i) + (j)]
-    #define C(i, j) matrix_c[n*(i) + (j)]
-    int i, j, k;
-
     clock_t start = clock();
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                C(i, j) +=  A(i, k)*B(k, j);
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            matrix_c[i][j] = 0;
+            for (int k=0; k < n; k++){
+                matrix_c[i][j] +=  matrix_a[i][k] * matrix_b[k][j];
             }
         }
     }
@@ -50,13 +47,9 @@ int main(int argc, char *argv[]){
 
     printf("Total Time: %.5f seconds\n", time_taken);
 
-    #undef A
-    #undef B
-    #undef C
-
     free(matrix_a);
     free(matrix_b);
-    free(matrix_b);
+    free(matrix_c);
 
     return 0;
 }
