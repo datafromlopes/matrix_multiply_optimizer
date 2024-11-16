@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <sys/time.h>
-
+#include <time.h>
 
 int main(int argc, char *argv[]){
     if (argc < 2) {
@@ -35,12 +34,21 @@ int main(int argc, char *argv[]){
 
     struct timeval start, end;
 
+    int blockSize = 128;
+
     gettimeofday(&start, NULL);
 
-    for (int i = 0; i < n; i++) {
-        for (int k = 0; k < n; k++) {
-            for (int j = 0; j < n; j++) {
-                C(i, j) +=  A(i, k)*B(k, j);
+    for (int ii = 0; ii < n; ii += blockSize) {
+        for (int jj = 0; jj < n; jj += blockSize) {
+            for (int kk = 0; kk < n; kk += blockSize) {
+                
+                for (int i = ii; i < ((ii + blockSize) < n ? (ii + blockSize) : n); i++) {
+                    for (int k = kk; k < ((kk + blockSize) < n ? (kk + blockSize) : n); k++) {
+                        for (int j = jj; j < ((jj + blockSize) < n ? (jj + blockSize) : n); j++) {
+                            C(i, j) += A(i, k) * B(k, j);
+                        }
+                    }
+                }
             }
         }
     }
@@ -49,7 +57,7 @@ int main(int argc, char *argv[]){
     double seconds = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
 
     printf("Total Time: %f seconds\n", seconds);
-    
+
     #undef A
     #undef B
     #undef C

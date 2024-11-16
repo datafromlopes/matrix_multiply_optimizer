@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
 
 int main(int argc, char *argv[]){
@@ -15,9 +16,9 @@ int main(int argc, char *argv[]){
 
     int n = atoi(argv[1]);
 
-    matrix_a = aligned_alloc(8, n * n * sizeof(*matrix_a));
-    matrix_b = aligned_alloc(8, n * n * sizeof(*matrix_b));
-    matrix_c = aligned_alloc(8, n * n * sizeof(*matrix_c));
+    matrix_a = aligned_alloc(64, n * n * sizeof(*matrix_a));
+    matrix_b = aligned_alloc(64, n * n * sizeof(*matrix_b));
+    matrix_c = aligned_alloc(64, n * n * sizeof(*matrix_c));
 
     srand(time(NULL));
 
@@ -30,10 +31,11 @@ int main(int argc, char *argv[]){
 
     #define A(i, j) matrix_a[n*(i) + (j)]
     #define B(i, j) matrix_b[n*(i) + (j)]
-    #define C(i, j) matrix_c[n*(i) + (j)]
-    int i, j, k;
+    #define C(i, j) matrix_c[n*(i) + (j)]\
 
-    clock_t start = clock();
+    struct timeval start, end;
+
+    gettimeofday(&start, NULL);
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -43,10 +45,10 @@ int main(int argc, char *argv[]){
         }
     }
 
-    clock_t end = clock();
-    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+    gettimeofday(&end, NULL);
+    double seconds = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
 
-    printf("Total Time: %.5f seconds\n", time_taken);
+    printf("Total Time: %f seconds\n", seconds);
 
     #undef A
     #undef B

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
 
 int main(int argc, char *argv[]){
@@ -17,9 +18,9 @@ int main(int argc, char *argv[]){
 
     
     for (int i = 0; i < n; i++) {
-        matrix_a[i] = (int *)aligned_alloc(8, n * sizeof(*matrix_a));
-        matrix_b[i] = (int *)aligned_alloc(8, n * sizeof(*matrix_b));
-        matrix_c[i] = (int *)aligned_alloc(8, n * sizeof(*matrix_c));
+        matrix_a[i] = (int *)aligned_alloc(64, n * sizeof(*matrix_a));
+        matrix_b[i] = (int *)aligned_alloc(64, n * sizeof(*matrix_b));
+        matrix_c[i] = (int *)aligned_alloc(64, n * sizeof(*matrix_c));
     }
     
     srand(time(NULL));
@@ -31,7 +32,9 @@ int main(int argc, char *argv[]){
         }
     }
 
-    clock_t start = clock();
+    struct timeval start, end;
+
+    gettimeofday(&start, NULL);
 
     for (int i = 0; i < n; i++){
         for (int j = 0; j < n; j++){
@@ -42,10 +45,10 @@ int main(int argc, char *argv[]){
         }
     }
 
-    clock_t end = clock();
-    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+    gettimeofday(&end, NULL);
+    double seconds = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
 
-    printf("Total Time: %.5f seconds\n", time_taken);
+    printf("Total Time: %f seconds\n", seconds);
 
     free(matrix_a);
     free(matrix_b);
