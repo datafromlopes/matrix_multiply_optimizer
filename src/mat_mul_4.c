@@ -15,9 +15,9 @@ int main(int argc, char *argv[]){
 
     int n = atoi(argv[1]);
 
-    matrix_a = aligned_alloc(64, n * n * sizeof(*matrix_a));
-    matrix_b = aligned_alloc(64, n * n * sizeof(*matrix_b));
-    matrix_c = aligned_alloc(64, n * n * sizeof(*matrix_c));
+    matrix_a = malloc(n * n * sizeof(*matrix_a));
+    matrix_b = malloc(n * n * sizeof(*matrix_b));
+    matrix_c = malloc(n * n * sizeof(*matrix_c));
 
     srand(time(NULL));
 

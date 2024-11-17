@@ -18,9 +18,9 @@ int main(int argc, char *argv[]){
 
     
     for (int i = 0; i < n; i++) {
-        matrix_a[i] = (int *)aligned_alloc(64, n * sizeof(*matrix_a));
-        matrix_b[i] = (int *)aligned_alloc(64, n * sizeof(*matrix_b));
-        matrix_c[i] = (int *)aligned_alloc(64, n * sizeof(*matrix_c));
+        matrix_a[i] = malloc(n * sizeof(*matrix_a));
+        matrix_b[i] = malloc(n * sizeof(*matrix_b));
+        matrix_c[i] = malloc(n * sizeof(*matrix_c));
     }
     
     srand(time(NULL));
