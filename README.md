@@ -26,6 +26,9 @@ Vectorization leverages SIMD (Single Instruction, Multiple Data) instructions to
 Blocking breaks matrices into smaller sub-blocks to optimize memory hierarchy usage. This reduces cache misses and enhances performance by improving memory access patterns.
 
 ---
+## 🏆 Outcomes Achieved
+![alt text](image.png)
+---
 
 ## 📂 Project Structure
 
