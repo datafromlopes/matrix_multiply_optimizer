@@ -3,6 +3,8 @@
 #include <sys/time.h>
 #include <time.h>
 
+#define ALIGNED_SIZE 8
+
 int main(int argc, char *argv[]){
     if (argc < 2) {
         printf("Use: ./program <number>\n");
@@ -15,9 +17,9 @@ int main(int argc, char *argv[]){
 
     int n = atoi(argv[1]);
 
-    matrix_a = malloc(n * n * sizeof(*matrix_a));
-    matrix_b = malloc(n * n * sizeof(*matrix_b));
-    matrix_c = malloc(n * n * sizeof(*matrix_c));
+    matrix_a = aligned_alloc(ALIGNED_SIZE, n * n * sizeof(*matrix_a));
+    matrix_b = aligned_alloc(ALIGNED_SIZE, n * n * sizeof(*matrix_b));
+    matrix_c = aligned_alloc(ALIGNED_SIZE, n * n * sizeof(*matrix_c));
 
     srand(time(NULL));
 
