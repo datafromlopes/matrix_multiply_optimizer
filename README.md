@@ -27,7 +27,7 @@ Blocking breaks matrices into smaller sub-blocks to optimize memory hierarchy us
 
 ---
 ## 🏆 Outcomes Achieved
-![alt text](image.png)
+![alt text](benchmark.png)
 ---
 
 ## 📂 Project Structure
