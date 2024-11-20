@@ -16,14 +16,22 @@ This repository provides optimized implementations of matrix multiplication algo
 #### 🔹 1. Row-Major Order
 Row-major order stores data row by row in memory. This technique ensures better spatial locality during row-wise traversals, reducing memory access times and improving overall performance.
 
-#### 🔹 2. Loop Reordering
+#### 🔹 2. Use of Optimization Flags
+
+Using optimization flags, such as -O3, adjusts how the compiler generates code by applying aggressive optimization techniques. This can significantly improve performance by reducing execution time and better utilizing the available hardware.
+
+#### 🔹 3. Loop Reordering
 Loop reordering adjusts the order of nested loop iterations to optimize memory access patterns. This improves data locality and minimizes cache misses, making computations more efficient.
 
-#### 🔹 3. Vectorization
+#### 🔹 4. Vectorization
 Vectorization leverages SIMD (Single Instruction, Multiple Data) instructions to perform parallel computations, accelerating processing on supported hardware architectures.
 
-#### 🔹 4. Blocking
-Blocking breaks matrices into smaller sub-blocks to optimize memory hierarchy usage. This reduces cache misses and enhances performance by improving memory access patterns.
+#### 🔹 5. Blocks
+The blocks technique breaks matrices into smaller sub-blocks to optimize memory hierarchy usage. This reduces cache misses and enhances performance by improving memory access patterns.
+
+#### 🔹 5. Recursion
+
+Recursion involves breaking down a problem into smaller, self-similar subproblems. In the context of matrix multiplication, this entails recursively dividing the matrices into quadrants and multiplying the corresponding quadrants. This approach can lead to significant performance improvements, especially for larger matrices.
 
 ---
 ## 🏆 Outcomes Achieved
@@ -59,3 +67,6 @@ To compile the project, use a compiler like `gcc` with appropriate optimization 
 6. `bin/exe_6`
     ```bash
     gcc -O3 -march=native -ftree-vectorize -o bin/exe_6 src/mat_mul_4.c
+7. `bin/exe_7`
+    ```bash
+    gcc -O3 -march=native -ftree-vectorize -o bin/exe_7 src/mat_mul_5.c
