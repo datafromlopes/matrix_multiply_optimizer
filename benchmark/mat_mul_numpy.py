@@ -1,7 +1,7 @@
 import numpy as np
 import time
 
-n = 1000
+n = 10_000
 matriz1 = np.random.uniform(0.0, 10.0, size=(n, n))
 matriz2 = np.random.uniform(0.0, 10.0, size=(n, n))
 

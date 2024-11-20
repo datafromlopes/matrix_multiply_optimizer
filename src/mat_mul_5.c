@@ -9,9 +9,8 @@
 void matrix_multiply_recursive(int *A, int *B, int *C, int n) {
     if (n <= BLOCK_SIZE) {
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                C[i * n + j] = 0;
-                for (int k = 0; k < n; k++) {
+            for (int k = 0; k < n; k++) {
+                for (int j = 0; j < n; j++) {
                     C[i * n + j] += A[i * n + k] * B[k * n + j];
                 }
             }
